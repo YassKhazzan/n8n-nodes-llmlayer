@@ -1,0 +1,64 @@
+{
+  "name": "n8n-nodes-llmlayer",
+  "version": "1.0.0",
+  "description": "n8n node for LLMLayer Search & Answer API",
+  "main": "index.js",
+  "keywords": [
+    "n8n",
+    "n8n-community-node-package",
+    "n8n-node",
+    "llmlayer",
+    "ai",
+    "search",
+    "web-search"
+  ],
+  "author": {
+    "name": "Yassine Khazzan",
+    "email": "yassine@llmlayer.ai"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/YassKhazzan/n8n-nodes-llmlayer.git"
+  },
+  "engines": {
+    "node": ">=18.17.0"
+  },
+  "scripts": {
+    "build": "tsc && npm run copy:assets",
+    "copy:assets": "copyfiles -u 1 \"nodes/**/*.png\" dist/",
+    "dev": "tsc --watch",
+    "lint": "eslint nodes credentials --ext .ts",
+    "lint:fix": "eslint nodes credentials --ext .ts --fix",
+    "prepublishOnly": "npm run build && npm run lint"
+  },
+  "files": [
+    "dist"
+  ],
+  "n8n": {
+    "n8nNodesApiVersion": 1,
+    "credentials": [
+      "dist/credentials/LlmLayerApi.credentials.js"
+    ],
+    "nodes": [
+      "dist/nodes/LlmLayer/LlmLayer.node.js"
+    ]
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.5",
+    "@typescript-eslint/eslint-plugin": "^6.19.0",
+    "@typescript-eslint/parser": "^6.19.0",
+    "copyfiles": "^2.4.1",
+    "eslint": "^8.56.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.1.3",
+    "n8n-core": "^1.68.0",
+    "n8n-workflow": "^1.68.0",
+    "prettier": "^3.2.4",
+    "rimraf": "^5.0.5",
+    "typescript": "^5.3.3"
+  },
+  "peerDependencies": {
+    "n8n-workflow": "~1.68.0"
+  }
+}
