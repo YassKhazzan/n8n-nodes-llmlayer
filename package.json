@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-llmlayer",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "n8n node for LLMLayer Search & Answer API",
   "main": "index.js",
   "keywords": [
@@ -26,7 +26,7 @@
   },
   "scripts": {
     "build": "tsc && npm run copy:assets",
-    "copy:assets": "copyfiles -u 1 \"nodes/**/*.png\" dist/",
+    "copy:assets": "copyfiles \"nodes/**/*.png\" dist/",
     "dev": "tsc --watch",
     "lint": "eslint nodes credentials --ext .ts",
     "lint:fix": "eslint nodes credentials --ext .ts --fix",
