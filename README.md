@@ -1,157 +1,149 @@
 # n8n-nodes-llmlayer
 
-This is an n8n community node for [LLMLayer](https://llmlayer.ai), a powerful Search & Answer API that combines web search with AI-powered responses.
+An n8n **Community Node** for [LLMLayer](https://llmlayer.ai) — a Search & Answer API that combines web search with AI-generated, source-grounded responses.
+
+---
 
 ## Features
 
-The LLMLayer node provides access to:
+* **AI‑Powered Answers**: Generate comprehensive answers using popular models (GPT‑4o, Claude 3.5, Gemini, etc.).
+* **Web Search**: General, news, shopping, videos, images, and scholar search types.
+* **Content Extraction**: Scrape public pages and return Markdown/HTML, or request PDFs/screenshots.
+* **YouTube Transcripts**: Retrieve transcripts from YouTube videos.
+* **PDF Text**: Extract text and metadata from PDFs.
 
-- **AI-Powered Answers**: Generate comprehensive answers using various AI models (GPT-4, Claude, Gemini, etc.)
-- **Web Search**: Search the web with multiple search types (general, news, shopping, videos, images, scholar)
-- **Content Scraping**: Extract content from any URL in multiple formats (markdown, HTML, PDF, screenshot)
-- **YouTube Transcripts**: Get transcripts from YouTube videos
-- **PDF Content Extraction**: Extract text content from PDF files
+> Availability of specific models/features depends on your LLMLayer account and current API support.
+
+---
+
+## Compatibility
+
+* **n8n**: 1.68+ recommended
+* **Node.js**: 20+ recommended (align with n8n’s LTS baseline)
+
+---
 
 ## Installation
 
-### In n8n Cloud
+### A) n8n Cloud / In‑Editor Browse
 
-1. Go to Settings > Community Nodes
-2. Search for `n8n-nodes-llmlayer`
-3. Click Install
+If/when this package is **verified by n8n**, you can install it directly from the editor:
 
-### In Self-Hosted n8n
+1. **Settings → Community Nodes → Browse**
+2. Search for `LLMLayer` or `n8n-nodes-llmlayer`
+3. Click **Install**
 
-Using npm:
+> If it’s not yet verified, use the self‑hosted options below.
+
+### B) Self‑Hosted n8n
+
+**From the UI**
+
+1. **Settings → Community Nodes → Install**
+2. Enter `n8n-nodes-llmlayer`
+3. Install and restart n8n if prompted
+
+**Using npm inside your instance**
+
 ```bash
 npm install n8n-nodes-llmlayer
 ```
 
-Using Docker:
+**Using Docker (inside the container)**
+
 ```bash
-docker exec -it n8n npm install n8n-nodes-llmlayer
+docker exec -it <n8n-container> npm install n8n-nodes-llmlayer
 ```
 
-Then restart your n8n instance.
+Then restart your container.
+
+**Via environment variable (install at startup)**
+
+```bash
+# Add to your n8n environment
+N8N_COMMUNITY_PACKAGES=n8n-nodes-llmlayer
+```
+
+---
 
 ## Authentication
 
-To use this node, you need an API key from LLMLayer:
+1. Sign up at **[https://app.llmlayer.ai](https://app.llmlayer.ai)** and create an API key.
+2. In n8n, go to **Credentials → New → LLMLayer**.
+3. Paste your API key and **Save**.
 
-1. Sign up at [LLMLayer](https://app.llmlayer.ai)
-2. Get your API key from the dashboard
-3. In n8n, create new LLMLayer credentials
-4. Enter your API key
+> This node sends your queries/URLs to LLMLayer; review your privacy and data‑handling requirements before production use.
 
-## Usage
+---
 
-### Answer Generation
+## Node Overview
 
-Generate AI-powered answers based on real-time web search:
+The node exposes the following **resources**:
 
-1. Add the LLMLayer node to your workflow
-2. Select "Answer" as the resource
-3. Enter your query
-4. Choose an AI model (GPT-4o, Claude 3.5, Gemini 2.0, etc.)
-5. Configure additional options as needed
+### 1) Answer
 
-**Example Use Cases:**
-- Customer support automation
-- Research assistance
-- Content generation
-- Real-time information retrieval
+Generate AI answers grounded in real‑time search.
 
-### Web Search
+* **Query** — Question/prompt
+* **Model** — Pick from supported models
+* **Answer Type** — `markdown` | `html` | `json`
+* **Search Type** — `general` | `news`
+* **System Prompt** — Optional instructions
+* **Location / Date Filter / Recency** — Tune search context
+* **Citations / Return Sources** — Include sources and documents
+* **Temperature / Max Tokens** — Output control
 
-Perform targeted web searches:
+### 2) Web Search
 
-1. Select "Web Search" as the resource
-2. Enter your search query
-3. Choose search type (general, news, shopping, videos, images, scholar)
-4. Apply filters (location, recency, domains)
+Perform targeted searches.
 
-### Content Scraping
+* **Search Type** — `general`, `news`, `shopping`, `videos`, `images`, `scholar`
+* **Query**, **Location**, **Recency**
+* **Domain Filters** — Include/exclude specific domains
 
-Extract content from any webpage:
+### 3) Scrape
 
-1. Select "Scrape" as the resource
-2. Enter the URL to scrape
-3. Choose output format (markdown, HTML, PDF, screenshot)
-4. Configure image and link inclusion
+Extract content from public web pages.
 
-### YouTube Transcripts
+* **URL**
+* **Format** — `markdown`, `html`, `pdf`, `screenshot`
+* **Include Images / Links**
 
-Get transcripts from YouTube videos:
+### 4) YouTube
 
-1. Select "YouTube" as the resource
-2. Enter the YouTube video URL
-3. Optionally specify language
+Fetch video transcripts.
 
-### PDF Content
+* **URL**
+* **Language** (optional)
 
-Extract text from PDF files:
+### 5) PDF
 
-1. Select "PDF" as the resource
-2. Enter the PDF URL
-3. Get extracted text and metadata
+Extract text from a PDF URL.
 
-## Node Configuration
+* **URL**
 
-### Answer Resource Options
+---
 
-- **Query**: Your question or search query
-- **Model**: Choose from 13+ AI models
-- **Answer Type**: markdown, HTML, or JSON
-- **Search Type**: general or news
-- **Location**: Geographic location for search
-- **System Prompt**: Custom instructions for AI
-- **Citations**: Include source citations
-- **Return Sources**: Get source documents
-- **Date Filter**: Filter by time period
-- **Temperature**: Control creativity (0-2)
-- **Max Tokens**: Response length limit
+## Usage Examples
 
-### Web Search Options
+### Answer (Markdown)
 
-- **Search Type**: general, news, shopping, videos, images, scholar
-- **Location**: Country code (us, uk, de, etc.)
-- **Recency**: Filter by time (hour, day, week, month, year)
-- **Domain Filter**: Include/exclude specific domains
-
-### Scrape Options
-
-- **Format**: markdown, HTML, PDF, screenshot
-- **Include Images**: Extract images from page
-- **Include Links**: Preserve hyperlinks
-
-## Error Handling
-
-The node includes comprehensive error handling:
-
-- Authentication errors
-- Rate limiting
-- Invalid requests
-- Network timeouts
-- API errors
-
-Enable "Continue On Fail" in node settings to handle errors gracefully.
-
-## Examples
-
-### Basic Answer Generation
 ```json
 {
   "resource": "answer",
   "query": "What are the latest developments in AI?",
   "model": "openai/gpt-4o-mini",
-  "answer_type": "markdown"
+  "answer_type": "markdown",
+  "citations": true,
+  "return_sources": true
 }
 ```
 
-### News Search with Filters
+### News Search (Past Week, US)
+
 ```json
 {
-  "resource": "webSearch", 
+  "resource": "webSearch",
   "query": "artificial intelligence breakthroughs",
   "search_type": "news",
   "recency": "week",
@@ -159,7 +151,8 @@ Enable "Continue On Fail" in node settings to handle errors gracefully.
 }
 ```
 
-### Structured JSON Output
+### Structured JSON Answer
+
 ```json
 {
   "resource": "answer",
@@ -177,33 +170,60 @@ Enable "Continue On Fail" in node settings to handle errors gracefully.
             "name": {"type": "string"},
             "rank": {"type": "number"},
             "use_cases": {"type": "array"}
-          }
+          },
+          "required": ["name", "rank"]
         }
       }
-    }
+    },
+    "required": ["languages"]
   }
 }
 ```
 
+---
+
+## Error Handling & Tips
+
+* Enable **Continue On Fail** to keep workflows running on non‑critical errors.
+* Common issues:
+
+    * **401/403** → Invalid/expired API key
+    * **429** → Rate limit exceeded (add a Wait node or retry)
+    * **Network timeouts** → Increase node timeout or add retries
+    * **Access‑restricted pages** (Scrape) → Paywalls/blocks/dynamic content may limit extraction
+
+---
+
 ## Support
 
-- **Documentation**: [LLMLayer Docs](https://docs.llmlayer.ai)
-- **Issues**: [GitHub Issues](https://github.com/YassKhazzan/n8n-nodes-llmlayer/issues)
-- **Email**: support@llmlayer.ai
+* **Docs**: [https://docs.llmlayer.ai](https://docs.llmlayer.ai)
+* **Issues**: [https://github.com/YassKhazzan/n8n-nodes-llmlayer/issues](https://github.com/YassKhazzan/n8n-nodes-llmlayer/issues)
+* **Email**: [support@llmlayer.ai](mailto:support@llmlayer.ai)
+
+---
 
 ## License
 
 MIT
 
+---
+
 ## Author
 
-Yassine Khazzan - [LLMLayer](https://llmlayer.ai)
+Yassine Khazzan — [LLMLayer](https://llmlayer.ai)
+
+---
 
 ## Changelog
 
+### 1.0.2
+
+* Polish: README, metadata, minor fixes
+
+### 1.0.1
+
+* Passed security scan
+
 ### 1.0.0
-- Initial release
-- Support for all LLMLayer API endpoints
-- Full model selection
-- Comprehensive error handling
-- TypeScript implementation
+
+* Initial release with Answer, Web Search, Scrape, YouTube, PDF
