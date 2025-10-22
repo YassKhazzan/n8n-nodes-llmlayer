@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-llmlayer",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "n8n node for LLMLayer Web Search & Answer API",
   "main": "dist/index.js",
   "keywords": [
@@ -12,6 +12,8 @@
     "search",
     "web-search",
     "scrape",
+    "crawl",
+    "map",
     "youtube-transcript",
     "web-answer"
   ],
@@ -55,13 +57,11 @@
     "eslint": "^8.56.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.1.3",
-    "n8n-core": "^1.68.0",
-    "n8n-workflow": "^1.68.0",
     "prettier": "^3.2.4",
     "rimraf": "^5.0.5",
     "typescript": "^5.3.3"
   },
   "peerDependencies": {
-    "n8n-workflow": "1.x"
+    "n8n-workflow": "*"
   }
 }

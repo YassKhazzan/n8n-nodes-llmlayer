@@ -751,13 +751,7 @@ export class LlmLayer implements INodeType {
 		const items = this.getInputData();
 		const returnData: INodeExecutionData[] = [];
 		const credentials = await this.getCredentials('llmLayerApi');
-
-		if (!credentials || !credentials.apiKey) {
-			throw new NodeOperationError(this.getNode(), 'No credentials found or API key is missing');
-		}
-
 		const baseUrl = (credentials.baseUrl as string) || 'https://api.llmlayer.dev';
-		const apiKey = credentials.apiKey as string;
 
 		// Process each input item
 		for (let itemIndex = 0; itemIndex < items.length; itemIndex++) {
@@ -915,7 +909,6 @@ export class LlmLayer implements INodeType {
 					method: 'POST',
 					url: `${baseUrl}${endpoint}`,
 					headers: {
-						Authorization: `Bearer ${apiKey}`,
 						'Content-Type': 'application/json',
 					},
 					body,
@@ -924,7 +917,11 @@ export class LlmLayer implements INodeType {
 				};
 
 				// eslint-disable-next-line prefer-const
-				responseData = await this.helpers.httpRequest(options);
+				responseData = await this.helpers.httpRequestWithAuthentication.call(
+					this,
+					'llmLayerApi',
+					options,
+				);
 
 				// Add response to return data
 				returnData.push({
